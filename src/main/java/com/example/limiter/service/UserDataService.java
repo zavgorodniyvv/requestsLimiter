@@ -1,8 +1,10 @@
-package com.example.limiter.dao;
+package com.example.limiter.service;
 
 import com.example.limiter.model.User;
 
-public interface UserRepository {
+import java.util.Map;
+
+public interface UserDataService {
     User getUserById(String userId);
 
     User createUser(User user);
@@ -10,4 +12,6 @@ public interface UserRepository {
     User updateUser(String userId, User updatedUser);
 
     User deleteUsers(String userId);
+
+    Map<String, Integer> getAllUsers();
 }
