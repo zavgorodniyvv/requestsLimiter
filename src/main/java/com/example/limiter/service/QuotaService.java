@@ -6,4 +6,6 @@ public interface QuotaService {
     Integer getConsumerQuota(String userId);
 
     Map<String, Integer> getUsersQuota();
+
+    boolean isRequestPermitted(String userId);
 }
