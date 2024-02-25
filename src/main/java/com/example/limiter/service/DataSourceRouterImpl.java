@@ -23,7 +23,7 @@ public class DataSourceRouterImpl implements DataSourceRouter{
     }
 
     @Override
-    public CrudRepository<User, String> route() {
+    public CrudRepository<User, String> getRepository() {
         LocalTime currentTimeUTC = LocalTime.now(ZoneOffset.UTC);
         LocalTime mySQLWorkTimeStart = LocalTime.of(9, 0);
         LocalTime mySQLWorkTimeEnd = LocalTime.of(22, 0);

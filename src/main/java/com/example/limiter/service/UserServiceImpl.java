@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService{
     public User getUser(String userId) {
         logger.info("Got request \"Get User\", userId = {}", userId);
         validationService.validateUserId(userId);
-        return dataSourceRouter.route().findById(userId).orElseThrow(() -> new LimiterException("User not found"));
+        return dataSourceRouter.getRepository().findById(userId).orElseThrow(() -> new LimiterException("User not found"));
     }
 
     @Override
@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService{
         logger.debug("User: {}", user);
         validationService.validateUser(user);
         user.setLastLoginTimeUtc(LocalDateTime.now());
-        user = dataSourceRouter.route().save(user);
+        user = dataSourceRouter.getRepository().save(user);
         logger.info("User created successfully");
         logger.debug("User: {}", user);
         return user;
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService{
         validationService.validateUserIdAndUser(userId, updatedUser);
         updatedUser.setId(userId);
         updatedUser.setLastLoginTimeUtc(LocalDateTime.now());
-        User user = dataSourceRouter.route().save(updatedUser);
+        User user = dataSourceRouter.getRepository().save(updatedUser);
         validationService.validateUser(user);
         logger.info("User with ID {} updated successfully", userId);
         logger.debug("User: {}", user);
@@ -62,14 +62,14 @@ public class UserServiceImpl implements UserService{
         logger.info("Got request \"Delete User\", userId = {}", userId);
         validationService.validateUserId(userId);
         User user = getUser(userId);
-        dataSourceRouter.route().delete(user);
+        dataSourceRouter.getRepository().delete(user);
         logger.info("User with ID {} deleted successfully", userId);
         return user;
     }
     @Override
     public Map<String, Integer> getAllQuota() {
         logger.info("Got request \"Get All Quota\"");
-        Iterable<User> users = dataSourceRouter.route().findAll();
+        Iterable<User> users = dataSourceRouter.getRepository().findAll();
         if(!users.iterator().hasNext()){
             throw new LimiterException("No users found");
         }

@@ -9,7 +9,7 @@ public class ValidationServiceImpl implements ValidationService{
     @Override
     public void validateUserId(String userId){
         if(userId == null || userId.isBlank()){
-            throw new LimiterException("UserId  is null or empty");
+            throw new LimiterException("UserId is null or empty");
         }
     }
 
