@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService{
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
-
     private final UserRepository userRepository;
 
     public UserServiceImpl(UserRepository userRepository) {
@@ -24,7 +23,7 @@ public class UserServiceImpl implements UserService{
             throw new LimiterException("UserId  is null or empty");
         }
         User user = userRepository.getUserById(userId);
-        if (user != null) {
+        if (user == null) {
             throw new LimiterException("User not found");
         }
         return user;

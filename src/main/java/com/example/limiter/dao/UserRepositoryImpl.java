@@ -5,10 +5,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserRepositoryImpl implements UserRepository{
+    private final UserMySQLRepository mySQLRepository;
+
+    public UserRepositoryImpl(UserMySQLRepository mySQLRepository) {
+        this.mySQLRepository = mySQLRepository;
+    }
 
     @Override
     public User getUserById(String userId) {
-        return null;
+        return mySQLRepository.getReferenceById(userId);
     }
 
     @Override

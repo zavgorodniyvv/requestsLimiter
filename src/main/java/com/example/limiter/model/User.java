@@ -1,9 +1,14 @@
 package com.example.limiter.model;
 
+import jakarta.persistence.Entity;
+import org.springframework.data.annotation.Id;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Entity
 public class User {
+    @Id
     private String id;
     private String firstName;
     private String lastName;
@@ -63,4 +68,5 @@ public class User {
                 ", lastLoginTimeUtc=" + lastLoginTimeUtc +
                 '}';
     }
+
 }
