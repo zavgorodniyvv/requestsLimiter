@@ -5,11 +5,10 @@ import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
-@Entity(name = "user")
+@Entity
 @Table(name = "user")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -17,6 +16,8 @@ public class User {
     private String firstName;
     private String lastName;
     private LocalDateTime lastLoginTimeUtc;
+    private int quota = 0;
+    private boolean isBlocked;
 
     public String getId() {
         return id;
@@ -50,5 +51,24 @@ public class User {
         this.lastLoginTimeUtc = lastLoginTimeUtc;
     }
 
+    public int getQuota() {
+        return quota;
+    }
 
+    public void setQuota(int quota) {
+        this.quota = quota;
+    }
+
+    public boolean isBlocked() {
+        return isBlocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        isBlocked = blocked;
+    }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
 }
+
