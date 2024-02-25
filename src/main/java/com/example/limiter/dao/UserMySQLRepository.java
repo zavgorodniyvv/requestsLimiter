@@ -1,9 +1,8 @@
 package com.example.limiter.dao;
 
 import com.example.limiter.model.User;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.CrudRepository;
 
-@Repository
-public interface UserMySQLRepository extends JpaRepository<User, String> {
+
+public interface UserMySQLRepository extends CrudRepository<User, String> {
 }

@@ -1,19 +1,20 @@
 package com.example.limiter.service;
 
-import com.example.limiter.dao.UserRepository;
 import com.example.limiter.exception.LimiterException;
 import com.example.limiter.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class UserServiceImpl implements UserService{
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
-    private final UserRepository userRepository;
+    private final UserDataService userDataService;
 
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserServiceImpl(UserDataService userDataService) {
+        this.userDataService = userDataService;
     }
 
     @Override
@@ -22,7 +23,7 @@ public class UserServiceImpl implements UserService{
         if(userId == null || userId.isBlank()){
             throw new LimiterException("UserId  is null or empty");
         }
-        User user = userRepository.getUserById(userId);
+        User user = userDataService.getUserById(userId);
         if (user == null) {
             throw new LimiterException("User not found");
         }
@@ -36,14 +37,15 @@ public class UserServiceImpl implements UserService{
         if(user == null){
             throw new LimiterException("Could not create user. User from request is null");
         }
-        return userRepository.createUser(user);
+        user.setLastLoginTimeUtc(LocalDateTime.now());
+        return userDataService.createUser(user);
     }
 
     @Override
     public User updateUser(String userId, User updatedUser) {
         logger.info("Got request \"Update User\", userId = {}", userId);
         logger.debug("User: {}", updatedUser);
-        User user = userRepository.updateUser(userId, updatedUser);
+        User user = userDataService.updateUser(userId, updatedUser);
         if (user == null) {
             throw new LimiterException("Could not update user");
         }
@@ -56,7 +58,7 @@ public class UserServiceImpl implements UserService{
         if(userId == null || userId.isBlank()){
             throw new LimiterException("UserId  is null or empty");
         }
-        User user = userRepository.deleteUsers(userId);
+        User user = userDataService.deleteUsers(userId);
         if (user == null) {
             throw new LimiterException("Could not delete User");
         }
