@@ -1,7 +1,6 @@
 package com.example.limiter.exception;
 
 public class LimiterException extends RuntimeException {
-
     public LimiterException(String message) {
         super(message);
     }
