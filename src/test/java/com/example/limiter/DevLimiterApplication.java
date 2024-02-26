@@ -5,11 +5,10 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Bean;
 import org.testcontainers.containers.MySQLContainer;
-import org.testcontainers.elasticsearch.ElasticsearchContainer;
 import org.testcontainers.utility.DockerImageName;
 
 @TestConfiguration(proxyBeanMethods = false)
-public class TestLimiterApplication {
+public class DevLimiterApplication {
 
     @Bean
     @ServiceConnection
@@ -23,7 +22,7 @@ public class TestLimiterApplication {
     }
 
     public static void main(String[] args) {
-        SpringApplication.from(LimiterApplication::main).with(TestLimiterApplication.class).run(args);
+        SpringApplication.from(LimiterApplication::main).with(DevLimiterApplication.class).run(args);
     }
 
 }
