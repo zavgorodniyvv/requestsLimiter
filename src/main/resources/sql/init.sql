@@ -7,7 +7,7 @@ create table users
     first_name          varchar(255)         null,
     last_name           varchar(255)         null,
     last_login_time_utc datetime             null,
-    quota               int        default 0 null,
+    requests_number     int        default 0 null,
     is_blocked          tinyint(1) default 0 not null
 );
 

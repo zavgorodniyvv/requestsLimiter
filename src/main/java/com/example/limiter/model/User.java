@@ -17,7 +17,7 @@ public class User {
     private String firstName;
     private String lastName;
     private LocalDateTime lastLoginTimeUtc;
-    private int quota = 0;
+    private int requestsNumber = 0;
     private boolean isBlocked;
 
     public String getId() {
@@ -52,12 +52,12 @@ public class User {
         this.lastLoginTimeUtc = lastLoginTimeUtc;
     }
 
-    public int getQuota() {
-        return quota;
+    public int getRequestsNumber() {
+        return requestsNumber;
     }
 
-    public void setQuota(int quota) {
-        this.quota = quota;
+    public void setRequestsNumber(int quota) {
+        this.requestsNumber = quota;
     }
 
     public boolean isBlocked() {
@@ -77,12 +77,12 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return quota == user.quota && isBlocked == user.isBlocked && Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(lastLoginTimeUtc, user.lastLoginTimeUtc);
+        return requestsNumber == user.requestsNumber && isBlocked == user.isBlocked && Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(lastLoginTimeUtc, user.lastLoginTimeUtc);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, lastLoginTimeUtc, quota, isBlocked);
+        return Objects.hash(id, firstName, lastName, lastLoginTimeUtc, requestsNumber, isBlocked);
     }
 
     @Override
@@ -92,7 +92,7 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", lastLoginTimeUtc=" + lastLoginTimeUtc +
-                ", quota=" + quota +
+                ", quota=" + requestsNumber +
                 ", isBlocked=" + isBlocked +
                 '}';
     }

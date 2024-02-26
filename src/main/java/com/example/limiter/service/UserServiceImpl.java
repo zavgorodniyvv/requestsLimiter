@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService{
         if(!users.iterator().hasNext()){
             throw new LimiterException("No users found");
         }
-        return StreamSupport.stream(users.spliterator(), false).collect(Collectors.toMap((User::getFullName), User::getQuota));
+        return StreamSupport.stream(users.spliterator(), false).collect(Collectors.toMap((User::getFullName), User::getRequestsNumber));
     }
 
 

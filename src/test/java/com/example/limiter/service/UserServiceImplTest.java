@@ -63,7 +63,7 @@ class UserServiceImplTest {
         User createdUser = userService.createUser(newUser);
 
         assertNotNull(createdUser.getLastLoginTimeUtc(), "The last login time should not be null");
-        assertEquals(0, createdUser.getQuota(), "The quota should be 0");
+        assertEquals(0, createdUser.getRequestsNumber(), "The quota should be 0");
         assertFalse(createdUser.isBlocked(), "The user should not be blocked");
     }
 
@@ -101,12 +101,12 @@ class UserServiceImplTest {
         User user1 = new User();
         user1.setFirstName("John");
         user1.setLastName("Doe");
-        user1.setQuota(5);
+        user1.setRequestsNumber(5);
 
         User user2 = new User();
         user2.setFirstName("Jane");
         user2.setLastName("Smith");
-        user2.setQuota(200);
+        user2.setRequestsNumber(200);
 
         Iterable<User> users = Arrays.asList(user1, user2);
 

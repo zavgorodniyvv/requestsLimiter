@@ -32,7 +32,7 @@ response:
     "firstName": "Mick",
     "lastName": "Jagger",
     "lastLoginTimeUtc": "2024-02-26T07:07:02.692732451",
-    "quota": 0,
+    "requestsNumber": 0,
     "fullName": "Mick Jagger",
     "blocked": false
 }
@@ -49,7 +49,7 @@ Get user:
     "firstName": "Mick",
     "lastName": "Jagger",
     "lastLoginTimeUtc": "2024-02-26T07:07:03",
-    "quota": 0,
+    "requestsNumber": 0,
     "fullName": "Mick Jagger",
     "blocked": false
 }
@@ -72,7 +72,7 @@ response:
     "firstName": "Freddy",
     "lastName": "Mercury",
     "lastLoginTimeUtc": "2024-02-26T07:10:21.859721684",
-    "quota": 0,
+    "requestsNumber": 0,
     "fullName": "Freddy Mercury",
     "blocked": false
 }
@@ -87,7 +87,7 @@ response:
     "firstName": "Freddy",
     "lastName": "Mercury",
     "lastLoginTimeUtc": "2024-02-26T07:10:22",
-    "quota": 0,
+    "requestsNumber": 0,
     "fullName": "Freddy Mercury",
     "blocked": false
 }
