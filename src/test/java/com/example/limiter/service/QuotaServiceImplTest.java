@@ -33,7 +33,7 @@ class QuotaServiceImplTest {
         String userId = "user1";
         var expectedQuota = 5;
         User user = new User();
-        user.setQuota(5);
+        user.setRequestsNumber(5);
         when(userService.getUser(userId)).thenReturn(user);
         doNothing().when(validationService).validateUserId(userId);
 
@@ -72,7 +72,7 @@ class QuotaServiceImplTest {
         String userId = "user1";
         User user = new User();
         user.setId(userId);
-        user.setQuota(1);
+        user.setRequestsNumber(1);
         when(userService.getUser(userId)).thenReturn(user);
         doNothing().when(validationService).validateUserId(userId);
         ReflectionTestUtils.setField(quotaService, "quota", 5);
@@ -80,7 +80,7 @@ class QuotaServiceImplTest {
         boolean permitted = quotaService.isRequestPermitted(userId);
 
         assertTrue(permitted, "The request should be permitted");
-        assertEquals(2, user.getQuota(), "The user's quota should be updated");
+        assertEquals(2, user.getRequestsNumber(), "The user's quota should be updated");
         verify(userService, times(1)).getUser(userId);
 
     }
@@ -92,7 +92,7 @@ class QuotaServiceImplTest {
         String userId = "user2";
         User user = new User();
         user.setId(userId);
-        user.setQuota(5);
+        user.setRequestsNumber(5);
         when(userService.getUser(userId)).thenReturn(user);
         doNothing().when(validationService).validateUserId(userId);
 
@@ -102,7 +102,7 @@ class QuotaServiceImplTest {
         String actualMessage = exception.getMessage();
         assertAll(
         () -> assertTrue(actualMessage.contains(expectedMessage), "The exception message should contain the expected message"),
-        () -> assertEquals(6, user.getQuota(), "The user's quota should be updated"),
+        () -> assertEquals(6, user.getRequestsNumber(), "The user's quota should be updated"),
         () -> assertTrue(user.isBlocked(), "The user should be blocked"));
     }
 

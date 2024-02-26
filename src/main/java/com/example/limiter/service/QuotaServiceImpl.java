@@ -7,9 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
 import java.util.Map;
 
 @Service
@@ -31,7 +28,7 @@ public class QuotaServiceImpl implements QuotaService{
     public Integer getConsumerQuota(String userId) {
         validationService.validateUserId(userId);
         logger.info("Getting quota for user: {}", userId);
-        return userService.getUser(userId).getQuota();
+        return userService.getUser(userId).getRequestsNumber();
     }
 
     @Override
@@ -52,7 +49,7 @@ public class QuotaServiceImpl implements QuotaService{
         if(user == null){
             throw new LimiterException("User not found");
         }
-        var newQuota = user.getQuota() + 1;
+        var newQuota = user.getRequestsNumber() + 1;
         if(newQuota > quota){
             blockUser(user, newQuota);
             throw new LimiterException("Quota was reached. User is blocked");
@@ -62,13 +59,13 @@ public class QuotaServiceImpl implements QuotaService{
 
     private void blockUser(User user, int newQuota) {
         user.setBlocked(true);
-        user.setQuota(newQuota);
+        user.setRequestsNumber(newQuota);
         user.setLastLoginTimeUtc(TimeUtils.getCurrentDateTimeUTC());
         userService.updateUser(user.getId(), user);
     }
 
     private void updateUserQuota(User user, int newQuota) {
-        user.setQuota(newQuota);
+        user.setRequestsNumber(newQuota);
         user.setLastLoginTimeUtc(TimeUtils.getCurrentDateTimeUTC());
         userService.updateUser(user.getId(), user);
     }
