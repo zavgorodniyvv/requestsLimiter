@@ -13,14 +13,13 @@ public class TestLimiterApplication {
 
     @Bean
     @ServiceConnection
-    ElasticsearchContainer elasticsearchContainer() {
-        return new ElasticsearchContainer(DockerImageName.parse("docker.elastic.co/elasticsearch/elasticsearch:7.17.10"));
-    }
-
-    @Bean
-    @ServiceConnection
     MySQLContainer<?> mysqlContainer() {
-        return new MySQLContainer<>(DockerImageName.parse("mysql:latest"));
+        return new MySQLContainer<>(DockerImageName.parse("mysql:latest"))
+                .withDatabaseName("userDataBase")
+                .withPassword("my-secret-pw")
+                .withUsername("root")
+                .withInitScript("init.sql")
+                .withReuse(false);
     }
 
     public static void main(String[] args) {

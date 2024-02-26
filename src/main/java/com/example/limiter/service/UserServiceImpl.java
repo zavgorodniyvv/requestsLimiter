@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -36,7 +35,7 @@ public class UserServiceImpl implements UserService{
         logger.info("Got request \"Create User\"");
         logger.debug("User: {}", user);
         validationService.validateUser(user);
-        user.setLastLoginTimeUtc(LocalDateTime.now());
+        user.setLastLoginTimeUtc(TimeUtils.getCurrentDateTimeUTC());
         user = dataSourceRouter.getRepository().save(user);
         logger.info("User created successfully");
         logger.debug("User: {}", user);
@@ -49,7 +48,7 @@ public class UserServiceImpl implements UserService{
         logger.debug("User: {}", updatedUser);
         validationService.validateUserIdAndUser(userId, updatedUser);
         updatedUser.setId(userId);
-        updatedUser.setLastLoginTimeUtc(LocalDateTime.now());
+        updatedUser.setLastLoginTimeUtc(TimeUtils.getCurrentDateTimeUTC());
         User user = dataSourceRouter.getRepository().save(updatedUser);
         validationService.validateUser(user);
         logger.info("User with ID {} updated successfully", userId);

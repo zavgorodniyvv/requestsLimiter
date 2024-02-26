@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.Map;
 
 @Service
@@ -61,13 +63,13 @@ public class QuotaServiceImpl implements QuotaService{
     private void blockUser(User user, int newQuota) {
         user.setBlocked(true);
         user.setQuota(newQuota);
-        user.setLastLoginTimeUtc(LocalDateTime.now());
+        user.setLastLoginTimeUtc(TimeUtils.getCurrentDateTimeUTC());
         userService.updateUser(user.getId(), user);
     }
 
     private void updateUserQuota(User user, int newQuota) {
         user.setQuota(newQuota);
-        user.setLastLoginTimeUtc(LocalDateTime.now());
+        user.setLastLoginTimeUtc(TimeUtils.getCurrentDateTimeUTC());
         userService.updateUser(user.getId(), user);
     }
 }
