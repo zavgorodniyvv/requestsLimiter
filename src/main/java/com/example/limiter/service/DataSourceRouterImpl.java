@@ -26,8 +26,8 @@ public class DataSourceRouterImpl implements DataSourceRouter{
     @Override
     public CrudRepository<User, String> getRepository() {
         LocalTime currentTimeUTC = LocalTime.now(ZoneOffset.UTC);
-        LocalTime mySQLWorkTimeStartUTC = TimeUtils.getTimeInUTC(LocalTime.of(7, 0));
-        LocalTime mySQLWorkTimeEndUTC = TimeUtils.getTimeInUTC(LocalTime.of(17, 0));
+        LocalTime mySQLWorkTimeStartUTC = LocalTime.of(9, 0);
+        LocalTime mySQLWorkTimeEndUTC = LocalTime.of(17, 0);
 
         if(currentTimeUTC.isAfter(mySQLWorkTimeStartUTC) && currentTimeUTC.isBefore(mySQLWorkTimeEndUTC)) {
             logger.debug("Current time is within MySQL work hours");
